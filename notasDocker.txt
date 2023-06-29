@@ -1,0 +1,50 @@
+### Comandos para Dcocker ###
+
+sudo chmod 666 /var/run/docker.sock
+
+############################
+### Comandos de Imagenes ###
+############################
+
+
+Creación de imagenes
+
+docker build -t name .                      --> para crear una imagen a partir de un dockerfile
+docker build --tag tag_name .               --> (el punto es dockerfile)
+docker build -t nameImage:tag .             --> para indicar un tag
+docker build -t nameImage:tag -f dockerfile --> para indicar un dockerfile especifico
+
+
+docker history -H imageName:tag --> muestra la historia de la imagen
+
+
+##################
+### Dockerfile ###
+##################
+
+FROM     --> se especifica desde donde empezar                               : FROM ubuntu
+RUN      --> ejecutar un comando de liux                                     : RUN apt-get update && \ apt-get install -y default-jre
+
+
+COPY     --> copiar archivos                                                 : COPY docker-ajmg-0.0.1-SNAPSHOT.jar .
+ADD      --> agregar urls en la imagen, lo descarga y lo pone en la imagen
+
+ENV      --> variables de entorno
+WORKDIR  --> directorio de trabajo                                           : WORKDIR /app
+EXPOSE   --> exponer puertos
+
+LABEL    --> Etiqueta para dar información
+USER     --> Que usario esta ejecutando la tarea
+VOLUME   --> data persistente del contenedor
+CMD      --> mantiene vivo al contenedor
+.dockerignore -->
+
+
+
+
+####################
+### Contenedores ###
+####################
+
+docker rm -fv container  --> eliminar un contenedor
+docker ps -a             --> muestra los contenedores activos y no
