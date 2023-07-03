@@ -18,6 +18,27 @@ docker build -t nameImage:tag -f dockerfile --> para indicar un dockerfile espec
 docker history -H imageName:tag --> muestra la historia de la imagen
 
 
+docker rmi  imageName           -> eliminar imagen
+docker rmi imageName imageName2 -> elimnar mas de una imagen 
+
+Danglin images --> no tiene nombre ni tag, imagen no referenciada
+
+
+### multistage ###
+
+El ultimo FROM sera el valido
+
+FROM maven:3.5-alpine         as builder  // palabra clave para establer un stage
+COPY app /app
+RUN  cd /app && mvn package
+
+FROM openjdp:8-alpine
+COPY --from=builder /app/target/my-app-1.0-SNAPSHOT.jar /opt/app.jar
+CMD java -jar /opt/app.jar
+
+
+el primer Stage es de construcción por lo regular
+
 ##################
 ### Dockerfile ###
 ##################
@@ -36,8 +57,9 @@ EXPOSE   --> exponer puertos
 LABEL    --> Etiqueta para dar información
 USER     --> Que usario esta ejecutando la tarea
 VOLUME   --> data persistente del contenedor
-CMD      --> mantiene vivo al contenedor
-.dockerignore -->
+CMD      --> mantiene vivo al contenedor, o correr un script
+             en el cmd también se corren cosas cuando el contenedor exista
+.dockerignore --> Sirve para omitir data en el contexto de Docker
 
 
 
@@ -45,6 +67,18 @@ CMD      --> mantiene vivo al contenedor
 ####################
 ### Contenedores ###
 ####################
+
+docker run --name nameContainer -p HostPort:ContainerPort image
+ : -d (detach)  para correr en backgorund
+   -p indicar el puerto a exponer
+
+docker ps                             --> listar contenedores activos
+docker ps -a                          --> lista cotenedores activos y no activos
+docker rename actualName newNAme      --> renombrar un contenedor
+docker stop containerName/id          --> Parar un contenedor
+docker restart containerName/id       --> detiene y reinicia el contenedor
+docker exec -ti -u containerName bash --> ingresar a un contenedor
+
 
 docker rm -fv container  --> eliminar un contenedor
 docker ps -a             --> muestra los contenedores activos y no
