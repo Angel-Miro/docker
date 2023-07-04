@@ -99,3 +99,21 @@
 
     docker stats nameContainer/idcontainer  --> estatus de un container
     docker  exec -u user -ti containerName bash --> Se ingresa al contenedor con un usuario 
+
+### limitar recursos a un contenedor
+    docker run -m  "600mb" --name nameContainer image --> limitar el uso de ram, puede ser "XXmb" o "XXgb"
+    docker run -d -m "2gb" --cpuset-cpus 0-n --name nameContainer image --> (0-n) el numero de nucleos
+
+### copiar archivos de un host a un contenedor y de un contenedor a un host
+    docker cp file  contenedorName:path
+    docker cp app.config db:/var/log --> copiar un archivo de un host a un contenedor
+
+    docker cp container:path pathHost
+    docker cp apache:/var/log/file.log . -->copiar un archivo de un contenedor a un host
+
+
+### Volúmenes
+    Nos permite persistir data de un contenedor
+        Host         : se alamacenan en el dockerhost
+        Anónimo      : no definimos una carpeta pero docker la genera
+        NamedVolumes : volumenes que creamos y son administradas por docker
