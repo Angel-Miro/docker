@@ -89,3 +89,6 @@ docker ps -q | xargs docker rm -f --> eliminar todos los contenedores
 
 ### variables de entorno
 docker run -dti -e "prueba=1234" --name containerNanme image  --> -e : indica una variable de entorno
+
+
+docker stats nameContainer/idcontainer
