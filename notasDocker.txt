@@ -1,10 +1,12 @@
-### Comandos para Dcocker ###
+### Comandos para Docker ###
 
-sudo chmod 666 /var/run/docker.sock
+sudo chmod 666 /var/run/docker.sock   --> para linux dejar de usar "sudo"
 
 ############################
 ### Comandos de Imagenes ###
 ############################
+
+Es una capa de solo lectura, es la definición o plantilla de un contenedor
 
 
 Creación de imagenes
@@ -42,6 +44,7 @@ el primer Stage es de construcción por lo regular
 ##################
 ### Dockerfile ###
 ##################
+El archivo en el cual se hace la especificación de la imagen
 
 FROM     --> se especifica desde donde empezar                               : FROM ubuntu
 RUN      --> ejecutar un comando de liux                                     : RUN apt-get update && \ apt-get install -y default-jre
@@ -67,6 +70,8 @@ CMD      --> mantiene vivo al contenedor, o correr un script
 ####################
 ### Contenedores ###
 ####################
+Una imagen en ejecución
+
 
 docker run --name nameContainer -p HostPort:ContainerPort image
  : -d (detach)  para correr en backgorund
@@ -91,4 +96,5 @@ docker ps -q | xargs docker rm -f --> eliminar todos los contenedores
 docker run -dti -e "prueba=1234" --name containerNanme image  --> -e : indica una variable de entorno
 
 
-docker stats nameContainer/idcontainer
+docker stats nameContainer/idcontainer  --> estatus de un container
+docker  exec -u user -ti containerName bash --> Se ingresa al contenedor con un usuario 
