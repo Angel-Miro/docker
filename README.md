@@ -117,3 +117,9 @@
         Host         : se alamacenan en el dockerhost
         Anónimo      : no definimos una carpeta pero docker la genera
         NamedVolumes : volumenes que creamos y son administradas por docker
+
+    volumen host:
+    Example: docker run -d --name nameContainer -p HostPort:ContainerHost -e "enviromentVariable" -v pathHost:pathContainer
+             docker run -d --name mysql-volumen -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=12345678" -v /home/aztlan/Documentos/docker/docker/volumenes/mysql-volume:/var/lib/mysql mysql:5.7
+
+            docker rm -fv mysql-volumen
