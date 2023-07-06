@@ -92,6 +92,7 @@
 
     docker ps -q             --> id de los Contenedores
     docker ps -q | xargs docker rm -f --> eliminar todos los contenedores
+    docker inspect nameContainer/id -> muestra detalles del contenedor
 
 ### variables de entorno
     docker run -dti -e "prueba=1234" --name containerNanme image  --> -e : indica una variable de entorno
@@ -118,8 +119,18 @@
         Anónimo      : no definimos una carpeta pero docker la genera
         NamedVolumes : volumenes que creamos y son administradas por docker
 
-    volumen host:
+    * volumen host:
     Example: docker run -d --name nameContainer -p HostPort:ContainerHost -e "enviromentVariable" -v pathHost:pathContainer
              docker run -d --name mysql-volumen -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=12345678" -v /home/aztlan/Documentos/tmp/docker-volumenes/mysql-volumen-hst:/var/lib/mysql mysql:5.7
 
-            docker rm -fv mysql-volumen
+             docker rm -fv mysql-volumen
+             # En la carpeta del host se almaceran la info de la bd, y si el contenedor es eliminado y se ejecuta nuevamente la data persistirá y será tomada de nuevo
+
+    * volumen anónimo
+             docker info | grep -i root -> para ver donde se encuentra docker
+    Example: docker run -d --name nameContainer -p HostPort:ContainerHost -e "enviromentVariable" -v pathContainer
+             docker run -d --name mysql-volumen-anonimo -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=12345678" -v /var/lib/mysql mysql:5.7
+
+             # La data será persisitida (opciinal) : /vat/lib/docker/volumes
+             Notas : No es recomendable dada que reuslta dificil identificar el volumen
+                     docker rm -fv mysql-volumen  -> con este comenado se elimina todo hasta el volumen, si omitimos v , no se elminiará el volumen
