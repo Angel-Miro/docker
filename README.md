@@ -137,4 +137,33 @@
              Notas : No es recomendable dada que reuslta dificil identificar el volumen
                      docker rm -fv mysql-volumen  -> con este comenado se elimina todo hasta el volumen, si omitimos v , no se elminiará el volumen
 
+             Dockerfile:
+                FROM ubuntu
+                VOLUME // genera un volumen anonimo
     
+    *NamedVolume
+    Example: docker volume create nameVolume;
+             docker volume create db-volume
+
+             se valida ralizando la consulta : docker volume ls
+
+             docker run -d --name mysql-volumen -p 3306:3306 -e "MYSQL_ROOT_PASSWORD=12345678" -v db-volume:/var/lib/mysql mysql:5.7
+    
+            Asi se asigna un volumen nombrado a un contenedor
+
+    Eliminar Volúmenes Dangling (No referenciados por algún contenedor)
+    docker volume ls -f dangling=true -q | xargs docker volume rm
+
+
+
+### Redes
+    Los contenedores se pueden comunicar entre ellos por medio de redes, existen las siguientes:
+        Bridge
+        Host
+        None
+        Overlay
+
+    Para conocer la red de docker en el host (docker0) podemos usar el siguiente comando --> ip a | grep docker
+    
+    ### La red por defecto en docker es <bridge> --> docker network ls // para listar las redes 
+                                                 --> docker network inspect red
