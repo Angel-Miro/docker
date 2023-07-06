@@ -90,9 +90,9 @@
     docker ps -a             --> muestra los contenedores activos y no
 
 
-    docker ps -q             --> id de los Contenedores
+    docker ps -q                      --> id de los Contenedores
     docker ps -q | xargs docker rm -f --> eliminar todos los contenedores
-    docker inspect nameContainer/id -> muestra detalles del contenedor
+    docker inspect nameContainer/id   --> muestra detalles del contenedor
 
 ### variables de entorno
     docker run -dti -e "prueba=1234" --name containerNanme image  --> -e : indica una variable de entorno
