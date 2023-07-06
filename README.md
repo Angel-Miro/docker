@@ -62,6 +62,9 @@
     LABEL    --> Etiqueta para dar información
     USER     --> Que usario esta ejecutando la tarea
     VOLUME   --> data persistente del contenedor
+        detalles: 
+
+        
     CMD      --> mantiene vivo al contenedor, o correr un script
                 en el cmd también se corren cosas cuando el contenedor exista
     .dockerignore --> Sirve para omitir data en el contexto de Docker
@@ -88,7 +91,6 @@
 
     docker rm -fv container  --> eliminar un contenedor
     docker ps -a             --> muestra los contenedores activos y no
-
 
     docker ps -q                      --> id de los Contenedores
     docker ps -q | xargs docker rm -f --> eliminar todos los contenedores
@@ -134,3 +136,5 @@
              # La data será persisitida (opciinal) : /vat/lib/docker/volumes
              Notas : No es recomendable dada que reuslta dificil identificar el volumen
                      docker rm -fv mysql-volumen  -> con este comenado se elimina todo hasta el volumen, si omitimos v , no se elminiará el volumen
+
+    
