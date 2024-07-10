@@ -165,5 +165,6 @@
 
     Para conocer la red de docker en el host (docker0) podemos usar el siguiente comando --> ip a | grep docker
     
-    ### La red por defecto en docker es <bridge> --> docker network ls // para listar las redes 
-                                                 --> docker network inspect red
+    ### La red por defecto en docker es <bridge> 
+    docker network ls --> para listar las redes 
+    docker network inspect <red-inspeccionar> --> obtener datos de una red
