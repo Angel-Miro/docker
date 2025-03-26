@@ -178,10 +178,10 @@
 
 ## Docker Compose
     Se usa un archivo que puede llamarse como sea(pero que tenga la extensión .yml), pero por estandar es docker-compose.yml, y está conformado por la siguiente estructura:
-    version(obligatoria)
-    services (obligatoria)
-    volumes (opcional)
-    networks (opcional)
+        version(obligatoria)
+        services (obligatoria)
+        volumes (opcional)
+        networks (opcional)
 
     Ejemplo de un docker-compose.yml
     
@@ -192,16 +192,75 @@
         image: postgres:latest
         container_name: gadget_plus
         restart: always
-        volumes:
-          - ./sql/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql
-          - ./sql/data.sql:/docker-entrypoint-initdb.d/data.sql
+        ports:
+          - "5432:5432"
+
+
+## Docker Compose Variables de entorno 
+    Ejemplo de docker-compose.yml donde se especifican los environment, claramente las propiedades varia según la imagen que se use, puede usarse con guión o bien puede usarse la propiedad env_file para especificar un archivo de configuración.
+    
+    version: '3.8'
+    
+    services:
+      db:
+        image: postgres:latest
+        container_name: gadget_plus
+        restart: always
         environment:
           - POSTGRES_DB=gadget_plus
           - POSTGRES_USER=user
           - POSTGRES_PASSWORD=user
-        ports:
-          - "5432:5432"
+        env_file: common.env
 
+
+## Docker Compose Volúmenes
+    Para ligar un volúmen del contenedor con un volúmen creado en el archivo docker-compose.yml (nombrado), o bien puede ser definido mediante un volumen de host
+        
+    version: '3.8'
+    
+    services:
+      web:
+        image: nginx:latest
+        container_name: web_nginx
+        volumes:
+            - "vol2:/usr/share/nginx/html"
+        ports:
+            - "8080:80"
+    volumes:
+        vol2:
+
+    ==================================================
+    En este caso el volumen está apuntando directamente a donde se encuentra la data en el host
+
+    version: '3.8'
+    
+    services:
+      web:
+        image: nginx:latest
+        container_name: web_nginx
+        volumes:
+            - "/home/usuario/docker-compose/html:/usr/share/nginx/html"
+        ports:
+            - "8080:80"
+
+
+## Docker Compose Networks
+    Para definir una red en compose y definirla dentro del contenedor
+        
+    version: '3.8'
+    
+    services:
+      web:
+        image: nginx:latest
+        container_name: web_nginx
+        networks:
+            - net-test
+        ports:
+            - "8080:80"
+    networks:
+        net-test:
+
+        
 
     
     
