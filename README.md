@@ -174,4 +174,34 @@
     docker network connect <nombre_red> <nombre_contenedor>                 --> conectar un contenedor a otra red existente
     docker network disconnect <nombre_red> <nombre_contenedor>              --> desconecta un contenedor de una red
     docker run -d --network <red> --name <nombre-contenedeor> -ti <imagen>  --> crear un conedor con una red
+
+
+## Docker Compose
+    Se usa un archivo que puede llamarse como sea(pero que tenga la extensión .yml), pero por estandar es docker-compose.yml, y está conformado por la siguiente estructura:
+    version(obligatoria)
+    services (obligatoria)
+    volumes (opcional)
+    networks (opcional)
+
+    Ejemplo de un docker-compose.yml
+    
+    version: '3.8'
+    
+    services:
+      db:
+        image: postgres:latest
+        container_name: gadget_plus
+        restart: always
+        volumes:
+          - ./sql/create_schema.sql:/docker-entrypoint-initdb.d/create_schema.sql
+          - ./sql/data.sql:/docker-entrypoint-initdb.d/data.sql
+        environment:
+          - POSTGRES_DB=gadget_plus
+          - POSTGRES_USER=user
+          - POSTGRES_PASSWORD=user
+        ports:
+          - "5432:5432"
+
+
+    
     
